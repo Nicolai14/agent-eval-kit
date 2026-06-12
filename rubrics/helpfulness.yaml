@@ -1,0 +1,22 @@
+# Example judge rubric. Judge checks reference rubrics by path (relative to
+# the scenario file). Scores are 0.0-1.0 per criterion; the weighted average
+# must reach pass_threshold for the check to pass.
+name: helpfulness
+description: Did the agent actually help the user with their request?
+pass_threshold: 0.7
+criteria:
+  - name: addresses_request
+    description: >
+      The response addresses the user's actual request, not a related but
+      different one.
+    weight: 3
+  - name: actionable
+    description: >
+      The user can act on the answer without needing obvious follow-up
+      questions.
+    weight: 2
+  - name: no_fabrication
+    description: >
+      The response does not state facts that are unsupported by the
+      conversation or tool results.
+    weight: 2

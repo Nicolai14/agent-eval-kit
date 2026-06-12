@@ -1,0 +1,31 @@
+# Happy path: the agent should answer a weather question by calling the
+# get_weather tool with the city the user actually asked about — and then
+# use the tool result in its answer instead of guessing.
+name: tool_use_happy_path
+description: Agent answers a weather question via the get_weather tool.
+
+input: "What's the weather in Berlin right now?"
+
+tools:
+  - name: get_weather
+    description: Get the current weather for a city.
+    input_schema:
+      type: object
+      properties:
+        city:
+          type: string
+          description: City name, e.g. "Berlin"
+      required: [city]
+
+expected:
+  - tool_called: get_weather
+  - tool_args_match:
+      tool: get_weather
+      args:
+        city: Berlin
+  - contains: Berlin
+  - max_turns: 3
+  # LLM-judged quality check. Skipped automatically (not failed) when
+  # ANTHROPIC_API_KEY is not set, so this scenario stays green offline.
+  - judge:
+      rubric: ../rubrics/helpfulness.yaml

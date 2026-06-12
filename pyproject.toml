@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agenteval"
+version = "0.1.0"
+description = "pytest-based eval harness for LLM agents. Declarative YAML scenarios, trajectory recording, optional LLM judge. Runs locally and in CI."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "agenteval contributors" }]
+keywords = ["llm", "agents", "evals", "testing", "pytest"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Framework :: Pytest",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Testing",
+]
+dependencies = [
+    "pyyaml>=5.4",
+    "pytest>=7.0",
+]
+
+[project.optional-dependencies]
+# Only needed for AnthropicAdapter and the LLM judge. Everything else runs offline.
+anthropic = ["anthropic>=0.40"]
+# Reserved for users wrapping OpenAI clients via CallableAdapter; agenteval itself
+# never imports openai.
+openai = ["openai>=1.0"]
+
+[project.scripts]
+agenteval = "agenteval.cli:entry"
+
+[project.entry-points.pytest11]
+agenteval = "agenteval.pytest_plugin"
+
+[tool.setuptools]
+packages = ["agenteval"]

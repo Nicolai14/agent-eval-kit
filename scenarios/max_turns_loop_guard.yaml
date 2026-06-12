@@ -1,0 +1,23 @@
+# Loop guard: agents with search tools can loop indefinitely, re-querying
+# with slightly different phrasings and burning tokens. max_turns puts a hard
+# ceiling on assistant turns — if the agent needs more than 5 to answer a
+# simple lookup, that's a regression worth failing the build over.
+name: max_turns_loop_guard
+description: Agent finds an answer via search within a bounded number of turns.
+
+input: "Search the docs for the rollback procedure for failed deployments."
+
+tools:
+  - name: search_docs
+    description: Full-text search over the internal documentation.
+    input_schema:
+      type: object
+      properties:
+        query:
+          type: string
+      required: [query]
+
+expected:
+  - tool_called: search_docs
+  - max_turns: 5
+  - contains: rollback

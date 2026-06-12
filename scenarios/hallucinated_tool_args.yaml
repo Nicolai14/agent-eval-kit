@@ -1,0 +1,23 @@
+# Hallucinated tool args: the user asks for the weather but never names a
+# city. A correct agent asks a clarifying question. A common failure mode is
+# inventing a plausible argument (defaulting to "San Francisco" or the city
+# from a previous, unrelated conversation) and calling the tool anyway.
+name: hallucinated_tool_args
+description: Agent must not invent tool arguments when required info is missing.
+
+input: "What's the weather like today?"
+
+tools:
+  - name: get_weather
+    description: Get the current weather for a city.
+    input_schema:
+      type: object
+      properties:
+        city:
+          type: string
+      required: [city]
+
+expected:
+  - tool_not_called: get_weather
+  - contains: "which city"
+  - regex: "\\?"   # the agent should ask, not assert

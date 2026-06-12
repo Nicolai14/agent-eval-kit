@@ -1,0 +1,16 @@
+# Multi-turn context: information from turn 1 must survive to turn 2.
+# Agents that rebuild their prompt per request (or truncate history too
+# aggressively) fail this even though every single turn looks fine.
+name: multi_turn_context
+description: Agent recalls the user's name from an earlier turn.
+
+input:
+  - role: user
+    content: "Hi! My name is Ada and I'm setting up the staging environment."
+  - role: user
+    content: "Quick check — what is my name?"
+
+expected:
+  - contains: "Your name is Ada"
+  - not_contains: "you've told me"   # the "I don't know your name" failure answer
+  - max_turns: 2
