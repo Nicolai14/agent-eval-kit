@@ -248,4 +248,4 @@ Currently the judge speaks the Anthropic API. The judge client is injectable (`j
 
 ## Pro pack
 
-If agenteval saves you time, there's a paid companion pack ($39, one-time, single team): 25 battle-tested scenario templates across five failure categories (tool misuse, hallucination, injection resistance, multi-turn memory, regression safety), a library of 8 judge rubrics, ready-made GitHub Actions workflows (PR gate + nightly full run), and an HTML trajectory diff report for comparing two runs. The core stays MIT and complete — the pack is a head start, not a feature unlock.
+If agenteval saves you time, there's a paid companion pack — [Agent Eval Kit Pro](https://aiactkit.gumroad.com/l/agent-eval-pro) ($39, one-time, single team): 25 battle-tested scenario templates across five failure categories (tool misuse, hallucination, injection resistance, multi-turn memory, regression safety), a library of 8 judge rubrics, ready-made GitHub Actions workflows (PR gate + nightly full run), and an HTML trajectory diff report for comparing two runs. The core stays MIT and complete — the pack is a head start, not a feature unlock.
